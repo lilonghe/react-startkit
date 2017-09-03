@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "vender": "webpack --config build/webpack.dll.config.js -p",
     "start": "NODE_ENV=development webpack-dev-server --config build/webpack.dev.js --colors",
     "build": "NODE_ENV=production webpack --config build/webpack.prod.js"
   },
@@ -22,6 +22,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^0.28.4",
     "html-webpack-plugin": "^2.30.1",
     "jsxobj": "^1.1.0",

@@ -3,13 +3,12 @@ const path = require('path')
 module.exports = {
 	entry: {
 	    index: './src/index.js',
-	    vendor: ["react","react-dom"]
   	},
   	output: {
 	    path: path.resolve("dist"),
 	    publicPath: '/',
 	    chunkFilename: '[name].[chunkhash].js',
-	    filename: '[name].[hash].bundle.js',
+	    filename: '[name].[hash].js',
   	},
   	rules: [
       {

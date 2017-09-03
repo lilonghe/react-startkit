@@ -2,6 +2,9 @@ const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const config = require('./webpack.config');
+const vender = require('./manifest.json');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   entry: config.entry,
@@ -11,11 +14,10 @@ module.exports = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({ names: 'vendor', filename: 'vender-[chunkhash].min.js'}),
-    new webpack.optimize.CommonsChunkPlugin({ names: 'manifest', filename: 'manifest-[hash].min.js' }),
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
+      vendorName: vender.name + '.js',
       hash: false
     }),
     new webpack.optimize.UglifyJsPlugin({
@@ -27,6 +29,17 @@ module.exports = {
         collapse_vars: true,
         reduce_vars: true,
       }
-    })
+    }),
+    new webpack.DllReferencePlugin({
+          context: __dirname,
+          manifest: require('./manifest.json')
+    }),
+    new CleanWebpackPlugin(
+        ['dist'],
+        {
+            root: path.resolve('./'),
+            exclude: [vender.name+'.js']
+        }
+    )
   ]
 }

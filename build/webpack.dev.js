@@ -1,11 +1,8 @@
 const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-var DashboardPlugin = require('webpack-dashboard/plugin');
-var Dashboard = require('webpack-dashboard');
-var dashboard = new Dashboard();
 const config = require('./webpack.config');
+const vender = require('./manifest.json');
 
 module.exports = {
   devtool: 'source-map',
@@ -13,9 +10,9 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     inline: true,
-    contentBase: 'src',
+    contentBase: 'dist',
     port: '3000',
-    quiet: true,
+    quiet: false,
   },
   entry: config.entry,
   output: config.output,
@@ -27,13 +24,15 @@ module.exports = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({ names: 'vendor', filename: 'vender-[chunkhash].min.js'}),
-    new webpack.optimize.CommonsChunkPlugin({ names: 'manifest', filename: 'manifest-[hash].min.js' }),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
+      vendorName: vender.name + '.js',
       hash: false
     }),
-    new DashboardPlugin(dashboard.setData)
+    new webpack.DllReferencePlugin({
+          context: __dirname,
+          manifest: require('./manifest.json')
+    }),
   ]
 }
