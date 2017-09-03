@@ -1,12 +1,12 @@
 import React from 'react'
 const asyncComponent = loadComponent => (
     class AsyncComponent extends React.Component {
-    	constructor(props){
-    		super(props);
-    		this.state = {
-            	Component: null,
-    		};
-    	}
+        constructor(props){
+            super(props);
+            this.state = {
+                Component: null,
+            };
+        }
 
         componentWillMount() {
             if (this.hasLoadedComponent()) {
