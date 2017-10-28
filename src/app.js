@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import asyncComponent from './utils/asyncComponent';
+import asyncComponent from './utils/AsyncComponent';
 
 const IndexPage = asyncComponent(() => import(/* webpackChunkName: "index_page" */'./pages/index'));
 

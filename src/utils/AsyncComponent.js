@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 const asyncComponent = loadComponent => (
     class AsyncComponent extends React.Component {
         constructor(props){

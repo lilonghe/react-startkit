@@ -12,8 +12,9 @@ module.exports = {
   module: {
     rules: config.rules
   },
+  stats: 'none',
   plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
+    ...config.plugins,
     // new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       template: 'public/index.html',

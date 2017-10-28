@@ -5,14 +5,13 @@ const config = require('./webpack.config');
 const vender = require('./manifest.json');
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   devServer: {
     historyApiFallback: true,
     hot: true,
     inline: true,
-    contentBase: 'dist',
     port: '3000',
-    quiet: false,
+    quiet: true
   },
   entry: config.entry,
   output: config.output,
@@ -23,11 +22,11 @@ module.exports = {
     rules: config.rules
   },
   plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
+    ...config.plugins,
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: 'public/index.html',
-      vendorName: vender.name + '.js',
+      vendorName: './dist/'+vender.name + '.js',
       hash: false
     }),
     new webpack.DllReferencePlugin({

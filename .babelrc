@@ -1,6 +1,5 @@
 {
   "plugins": [
-    "transform-decorators-legacy",
     "syntax-dynamic-import"
   ],
   "presets": [
