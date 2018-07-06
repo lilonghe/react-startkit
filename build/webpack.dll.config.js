@@ -2,10 +2,10 @@ const webpack = require('webpack');
 const path = require('path');
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const packageConfig = require('../package.json');
 
 
-const vendors = ["react","react-dom"];
-
+const vendors = packageConfig.vendor || [];
 module.exports = {
     output: {
         path: path.resolve("dist"),
@@ -23,7 +23,7 @@ module.exports = {
             context: __dirname,
         }),
         new CleanWebpackPlugin(
-            ['dist/vender*.js'],
+            ['dist/vendor*.js'],
             {
                 root: path.resolve('./')
             }
