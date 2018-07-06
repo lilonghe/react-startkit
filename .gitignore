@@ -6,3 +6,5 @@ dist
 .idea
 
 build/manifest.json
+
+package-lock.json
