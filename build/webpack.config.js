@@ -47,8 +47,8 @@ module.exports = {
     ],
     plugins: [
         new MiniCssExtractPlugin({
-            filename: "[name].css",
-            chunkFilename: "[id].css"
+            filename: "[name].[hash].css",
+            chunkFilename: "[id].[chunkhash].css"
         }),
         new WebpackMessages({
             logger: str => signale.pending(`>> ${str}`),
