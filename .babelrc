@@ -1,10 +1,22 @@
 {
-  "plugins": [
-    "syntax-dynamic-import"
-  ],
   "presets": [
-    "env",
-    "react",
-    "stage-0"
+    "@babel/preset-env",
+    "@babel/preset-react",
+    ["@babel/preset-stage-0",
+    {
+      "decoratorsLegacy": true,
+      "pipelineProposal": "minimal"
+    }]
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties",
+    ["@babel/plugin-proposal-decorators",{
+      "legacy": true
+    }],
+    ["@babel/plugin-proposal-pipeline-operator", 
+      { "proposal": "minimal" }
+    ]
   ]
 }
