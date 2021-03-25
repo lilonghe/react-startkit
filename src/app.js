@@ -1,14 +1,10 @@
-import React,{ Component } from 'react';
-import asyncComponent from './utils/AsyncComponent';
+import React from 'react';
+import { hot } from 'react-hot-loader/root';
 
-const IndexPage = asyncComponent(() => import(/* webpackChunkName: "index_page" */'./pages/index'));
-
-export default class App extends Component {
-    render() {
-        return (
-            <div>
-                <IndexPage />
-            </div>
-        )
-    }
+const App = () => {
+    return <div>
+        Hello!
+    </div>
 }
+
+export default hot(App);
