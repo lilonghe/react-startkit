@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const config = require('./config');
+
 const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
@@ -37,7 +39,7 @@ module.exports = {
         rules: [
             {
 				test: /\.m?js$/,
-                include: /src/,
+                exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
                     options: {
@@ -85,14 +87,6 @@ module.exports = {
                 ]
             },
             {
-                test: /\.css$/,
-                exclude: /src/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    "css-loader",
-                ]
-            },
-            {
                 test: /\.less$/,
                 use: [
                     MiniCssExtractPlugin.loader,
@@ -103,6 +97,20 @@ module.exports = {
                             lessOptions: {
                                 javascriptEnabled: true
                             }
+                        }
+                    }
+                ]
+            },
+            // assets loader
+            {
+                test: config.webpack.assetsPattern || /\.(png|jpg|gif|svg)$/,
+                use:[
+                    {
+                        loader: config.webpack.assetsLoader || 'url-loader',
+                        options: config.webpack.assetsLoaderOption || {
+                            limit: 1024,
+                            publicPath: 'assets',
+                            outputPath: 'assets',
                         }
                     }
                 ]
