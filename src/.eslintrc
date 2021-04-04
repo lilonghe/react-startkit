@@ -1,0 +1,13 @@
+{
+    "root": true,
+    "env": {
+        "browser": true
+    },
+    "parser": "babel-eslint",
+    "plugins": [
+        "react"
+    ],
+    "extends": [
+        "eslint:recommended", "plugin:react/recommended"
+    ]
+}

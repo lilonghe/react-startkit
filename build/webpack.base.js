@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
+
 const config = require('./config');
 
 const devMode = process.env.NODE_ENV !== 'production';
@@ -34,6 +36,11 @@ module.exports = {
             filename: devMode ? '[name].css' : '[name].[contenthash].css',
             chunkFilename: devMode ? '[id].css' : '[id].[contenthash].css',
         }),
+        new ESLintPlugin({
+            fix: true,
+            extensions: ['js','jsx'],
+        }),
+        new webpack.ProgressPlugin()          
     ],
     module: {
         rules: [

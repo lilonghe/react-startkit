@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Cherry from '../../assets/cherry.svg';
 import Circle from '../../assets/circle.svg';
 import Pineapple from '../../assets/pineapple.png';
@@ -12,7 +11,7 @@ const Index = () => {
         <img src={Circle} />
         <img src={Pineapple} />
 
-        {data.length}
+        {data.map(item=><div key={item.id}>{item.name}</div>)}
     </div>
 }
 
