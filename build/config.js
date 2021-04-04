@@ -8,7 +8,7 @@ const config  = {
         * assetsLoaderOption: { limit: 1024, },
         * 
         **/
-        
+        enableESLint: true,
     }
 }
 module.exports = config;
