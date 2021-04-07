@@ -14,6 +14,35 @@ const plugins = [
     }),
 ].filter(p=>p);
 
+const cssSRC = {
+    loader: "css-loader",
+    options: {
+        modules: {
+            localIdentName: "[name]_[local]--[hash:base64:5]",
+        },
+        esModule: false,
+    },
+}
+
+const lessSRC = {
+    loader: 'less-loader',
+    options: {
+        lessOptions: {
+            javascriptEnabled: true
+        }
+    }
+};
+
+const babelOptions = {
+    presets: [
+        "@babel/preset-env", 
+        "@babel/preset-react"
+    ],
+    plugins: [
+        "react-hot-loader/babel",
+    ]
+};
+
 module.exports = {
     cache: {
         type: 'filesystem',
@@ -31,6 +60,10 @@ module.exports = {
             chunks: 'all',
             hidePathInfo: true,
         },
+    },
+    resolve:{
+        alias: config.webpack.alias || {},
+        fallback: config.webpack.fallback || {},
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -52,15 +85,7 @@ module.exports = {
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
-                    options: {
-                        presets: [
-                            "@babel/preset-env", 
-                            "@babel/preset-react"
-                        ],
-                        plugins: [
-                            "react-hot-loader/babel",
-                        ]
-                    }
+                    options: babelOptions,
                 }
 			},
             {
@@ -68,15 +93,7 @@ module.exports = {
                 exclude: /node_modules/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    {
-                        loader: "css-loader",
-                        options: {
-                            modules: {
-                                localIdentName: "[name]_[local]--[hash:base64:5]",
-                            },
-                            esModule: false,
-                        },
-                    },
+                    cssSRC,
                     "stylus-loader",
                 ]
             },
@@ -85,30 +102,16 @@ module.exports = {
                 exclude: /node_modules/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    {
-                        loader: "css-loader",
-                        options: {
-                            modules: {
-                                localIdentName: "[name]_[local]--[hash:base64:5]",
-                            },
-                            esModule: false,
-                        },
-                    },
+                    cssSRC,
                 ]
             },
             {
                 test: /\.less$/,
+                include: /src/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    {
-                        loader: 'less-loader',
-                        options: {
-                            lessOptions: {
-                                javascriptEnabled: true
-                            }
-                        }
-                    }
+                    cssSRC,
+                    lessSRC,
                 ]
             },
             // assets loader

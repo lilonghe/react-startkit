@@ -8,6 +8,7 @@ module.exports = merge(base, {
     devServer: {
       contentBase: 'public',
       hot: true,
+      historyApiFallback: true,
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),

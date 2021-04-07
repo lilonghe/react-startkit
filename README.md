@@ -15,3 +15,25 @@ build 目录下存放 webpack 配置文件，会逐渐把 webpack 配置抽离�
 // import Pineapple from '../../assets/pineapple.png';
 img src={Pineapple} />
 ```
+
+
+# Hack
+## CSS URL 不解析指定路径
+```
+const cssSRC = {
+    loader: "css-loader",
+    options: {
+        modules: {
+            localIdentName: "[name]_[local]--[hash:base64:5]",
+        },
+        esModule: false,
+        // 加入以下代码
+        url: (url, resourcePath) => {
+            if (url.indexOf("/")==0) {
+                return false;
+            }
+            return true;
+        },
+    },
+}
+```
