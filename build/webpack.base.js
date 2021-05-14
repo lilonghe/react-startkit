@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const config = require('./config');
 
@@ -12,6 +13,7 @@ const plugins = [
         fix: true,
         extensions: ['js','jsx'],
     }),
+    // new BundleAnalyzerPlugin(),
 ].filter(p=>p);
 
 const cssSRC = {
@@ -20,6 +22,13 @@ const cssSRC = {
         modules: {
             localIdentName: "[name]_[local]--[hash:base64:5]",
         },
+        esModule: false,
+    },
+}
+
+const libCSSSRC = {
+    loader: "css-loader",
+    options: {
         esModule: false,
     },
 }
@@ -50,7 +59,8 @@ module.exports = {
     entry: path.resolve(__dirname, '../src', 'index.js'),
     output: {
 		path: path.resolve(__dirname, '../dist'),
-		filename: '[name].[contenthash].js',
+		filename: '[contenthash].js',
+        chunkFilename: '[contenthash].js',
 		publicPath: '/',
         clean: true,
         pathinfo: false,
@@ -72,8 +82,8 @@ module.exports = {
 			hash: true,
 		}),
         new MiniCssExtractPlugin({
-            filename: devMode ? '[name].css' : '[name].[contenthash].css',
-            chunkFilename: devMode ? '[id].css' : '[id].[contenthash].css',
+            filename: '[contenthash].css',
+            chunkFilename: '[contenthash].css',
         }),
         new webpack.ProgressPlugin(),    
         ...plugins,  
@@ -89,20 +99,19 @@ module.exports = {
                 }
 			},
             {
-                test: /\.styl$/,
-                exclude: /node_modules/,
+                test: /\.css$/,
+                include: /src/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     cssSRC,
-                    "stylus-loader",
                 ]
             },
             {
                 test: /\.css$/,
-                exclude: /node_modules/,
+                include: /node_modules/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    cssSRC,
+                    libCSSSRC,
                 ]
             },
             {

@@ -20,5 +20,12 @@ module.exports = merge(base, {
             ],
             
         })
-    ]
+    ],
+    optimization: {
+        minimize: true,
+        minimizer: [
+          `...`,
+          new CssMinimizerPlugin(),
+        ],
+    },
 });

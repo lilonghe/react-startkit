@@ -1,0 +1,4 @@
+{
+    "watch": ["utils.js","config.js", "webpack.base.js","webpack.dev.js"],
+    "exec": "webpack serve --config=build/webpack.dev.js"
+ }
