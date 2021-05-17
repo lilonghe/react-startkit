@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "nodemon --config=build/nodemon.json",
+    "start": "nodemon --config build/nodemon.json",
     "build": "webpack --config=build/webpack.pro.js"
   },
   "dependencies": {
