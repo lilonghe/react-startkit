@@ -5,7 +5,7 @@ const config = require('./config');
 
 module.exports = merge(base, {
     mode: 'development',
-    devtool: 'inline-source-map',
+    devtool: 'eval-cheap-module-source-map',
     devServer: {
       contentBase: 'public',
       hot: true,
