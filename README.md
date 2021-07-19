@@ -24,3 +24,7 @@ const cssSRC = {
     },
 }
 ```
+
+# FAQ
+## Husky@4
+因为最新版 Husky 不支持把配置写在 package.json 里，所以使用了 v4 版本。
