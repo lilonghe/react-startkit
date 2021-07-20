@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const config = require('./config');
 
@@ -13,8 +12,7 @@ const plugins = [
         fix: true,
         extensions: ['js','jsx'],
     }),
-    // new BundleAnalyzerPlugin(),
-].filter(p=>p);
+].filter(Boolean);
 
 const cssSRC = {
     loader: "css-loader",
@@ -48,8 +46,8 @@ const babelOptions = {
         "@babel/preset-react"
     ],
     plugins: [
-        "react-hot-loader/babel",
-    ]
+        devMode && 'react-refresh/babel'
+    ].filter(Boolean),
 };
 
 module.exports = {
@@ -102,7 +100,7 @@ module.exports = {
                 test: /\.css$/,
                 include: /src/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
                     cssSRC,
                 ]
             },
@@ -110,7 +108,7 @@ module.exports = {
                 test: /\.css$/,
                 include: /node_modules/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
                     libCSSSRC,
                 ]
             },
@@ -118,7 +116,7 @@ module.exports = {
                 test: /\.less$/,
                 include: /src/,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
                     cssSRC,
                     lessSRC,
                 ]
