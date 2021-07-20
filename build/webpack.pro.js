@@ -28,8 +28,14 @@ module.exports = merge(base, {
         minimizer: [
           new CssMinimizerPlugin(),
           new TerserPlugin({
+            terserOptions: {
+                format: {
+                    comments: false,
+                },
+            },
             extractComments: false
-          })
+          }),
+          '...',
         ],
     },
 });
