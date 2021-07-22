@@ -129,7 +129,6 @@ module.exports = {
                         loader: config.webpack.assetsLoader || 'url-loader',
                         options: config.webpack.assetsLoaderOption || {
                             limit: 1024,
-                            publicPath: 'assets',
                             outputPath: 'assets',
                         }
                     }
